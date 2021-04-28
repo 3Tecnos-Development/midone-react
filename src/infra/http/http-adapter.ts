@@ -9,6 +9,10 @@ export const HttpAdapter: IHttpPort = class {
     const env = process.env.MIDONE_ENV === "dev" ? "-develop" : "";
     return axios.create({
       baseURL: `https://api-gateway${env}.3tecnos.com.br/midone/"`,
+      headers: {
+        "x-userpoolid": process.env.MIDONE_USERPOOL_ID,
+        "x-clientid": process.env.MIDONE_CLIENT_ID,
+      },
     });
   }
 
