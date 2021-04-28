@@ -2,16 +2,17 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable class-methods-use-this */
 import axios, { AxiosInstance } from "axios";
+import env from "react-dotenv";
 import { HttpResponse, IHttpPort } from "core/ports";
 
 export const HttpAdapter: IHttpPort = class {
   static axiosInstance(): AxiosInstance {
-    const env = process.env.MIDONE_ENV === "dev" ? "-develop" : "";
+    const environment = env.MIDONE_ENV === "dev" ? "-develop" : "";
     return axios.create({
-      baseURL: `https://api-gateway${env}.3tecnos.com.br/midone/"`,
+      baseURL: `https://api-gateway${environment}.3tecnos.com.br/midone`,
       headers: {
-        "x-userpoolid": process.env.MIDONE_USERPOOL_ID,
-        "x-clientid": process.env.MIDONE_CLIENT_ID,
+        "x-userpoolid": env.MIDONE_USERPOOL_ID,
+        "x-clientid": env.MIDONE_CLIENT_ID,
       },
     });
   }
