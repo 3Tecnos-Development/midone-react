@@ -11,7 +11,7 @@ export const UserExistsService: IUserExistsUseCase = class {
     const response = await HttpAdapter.get<IHttpResponse>(
       `users/${userName}/exists`,
     );
-    const { exists } = (response.data as unknown) as Result;
+    const { exists } = (response.data.body as unknown) as Result;
     return Promise.resolve(exists);
   }
 };
