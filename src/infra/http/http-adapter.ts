@@ -7,7 +7,7 @@ import { HttpResponse, IHttpPort } from "core/ports";
 
 export const HttpAdapter: IHttpPort = class {
   static axiosInstance(): AxiosInstance {
-    const environment = env.MIDONE_ENV === "dev" ? "-develop" : "";
+    const environment = env.MIDONE_ENV === "development" ? "-develop" : "";
     return axios.create({
       baseURL: `https://api-gateway${environment}.3tecnos.com.br/midone`,
       headers: {
