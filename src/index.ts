@@ -1,3 +1,7 @@
-import { useUser, usePasswordRequirements } from "application/hooks";
+import {
+  useUserExists,
+  usePasswordRequirements,
+  useVerifyPhone,
+} from "application/hooks";
 
-export { useUser, usePasswordRequirements };
+export { useUserExists, usePasswordRequirements, useVerifyPhone };
