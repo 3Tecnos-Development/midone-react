@@ -8,12 +8,26 @@ import { HttpResponse, IHttpPort } from "core/ports";
 export const HttpAdapter: IHttpPort = class {
   static axiosInstance(): AxiosInstance {
     const environment = env.MIDONE_ENV === "development" ? "-develop" : "";
+    const enabledCors = env.MIDONE_ENABLED_CORS || false;
+
+    const headers = {
+      "x-userpoolid": env.MIDONE_USERPOOL_ID,
+      "x-clientid": env.MIDONE_CLIENT_ID,
+    };
+
+    if (enabledCors) {
+      Object.assign(headers, {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "cleaapplication/json;charset=utf-8",
+        "Acess-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+        "Acess-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      });
+    }
+
     return axios.create({
       baseURL: `https://api-gateway${environment}.3tecnos.com.br/midone`,
-      headers: {
-        "x-userpoolid": env.MIDONE_USERPOOL_ID,
-        "x-clientid": env.MIDONE_CLIENT_ID,
-      },
+      headers,
     });
   }
 
